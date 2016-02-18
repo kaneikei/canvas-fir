@@ -36,5 +36,46 @@ window.onload=function()
 			ctx.fill();
 		}
 	}
+
+
+	var lingrad=ctx.createLinearGradient(20,300,600,300);//颜色的起点 终点  线性渐变
+	lingrad.addColorStop(0,"red");
+	lingrad.addColorStop(0.2,"orange");
+	lingrad.addColorStop(0.4,"yellow");
+	lingrad.addColorStop(0.6,"green");
+	lingrad.addColorStop(0.8,"blue");
+	lingrad.addColorStop(1,"purple");
+
+	ctx.lineWidth=6;
+	ctx.lineCap="round";//butt或square
+	ctx.strokeStyle=lingrad;
+
+	// ctx.beginPath();
+	// ctx.moveTo(20,300);
+	// ctx.lineTo(580,300);
+	// ctx.stroke();
+
+	// ctx.beginPath();
+	// ctx.fillRect(0,0,600,200);
+	// ctx.fill()
+
+	var luozi=function(x,y,color)
+	{	
+		var zx=39*x+27.5;
+		var zy=39*y+27.5;
+		var black=ctx.createRadialGradient(zx,zy,1,zx,zy,14);
+		black.addColorStop(0.1,"#555");
+		black.addColorStop(1,"black");
+		var white=ctx.createRadialGradient(zx,zy,1,zx,zy,14);
+		white.addColorStop(0.1,"#fff");
+		white.addColorStop(1,"#EdEdEd");
+		ctx.fillStyle=color?black:white;
+		ctx.beginPath();
+		ctx.arc(zx,zy,14,0,Math.PI*2);
+		ctx.fill();
+	}
+	luozi(3,3,true);
+	luozi(4,3,false);
+	
 	
 }
