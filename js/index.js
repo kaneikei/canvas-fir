@@ -2,9 +2,13 @@ window.onload=function()
 {
 	var canvas=document.querySelector("#canvas");
 	var ctx=canvas.getContext("2d");
+	var shengli=document.querySelector(".shengli");
+	var shi=document.querySelector(".shi");
+	var fou=document.querySelector(".fou");
 	// var shux=0;
 	// var hengx=0;
 	var row=15;//棋盘大小
+	var num=0;
 	var qizi={};//所有的落子数据
 	var kaiguan=localStorage.x?false:true;//控制该谁落子
 	var huaqipan=function()
@@ -98,8 +102,33 @@ window.onload=function()
 		}
 	}
 	//调用落子函数  实现单击下子功能
+	var t;
 	canvas.onclick=function(ev)
-	{
+	{	
+		console.log(kaiguan)
+		clearInterval(t);
+		num=0;
+		drawclock();
+		t=setInterval(function()
+			{num=num+1;
+			 drawclock();
+			 if(kaiguan)
+			 	{  
+			 		if(num==30){chaoshi.style.display="block";
+			 				   shifouzailai.style.display="block";
+		        			   shengli.classList.add('baiqisheng');
+		        			   clearInterval(t);
+		        			   canvas.onclick=null}
+				}
+			else if(kaiguan==false)
+				{
+					if(num==30){chaoshi2.style.display="block";
+								shifouzailai.style.display="block";
+		        				shengli.classList.add('heiqisheng');
+		        				clearInterval(t);
+		        				canvas.onclick=null}
+				};
+		},1000);
 		var x=Math.round((ev.offsetX-27.5)/39);
 		var y=Math.round((ev.offsetY-27.5)/39);
 
@@ -115,31 +144,49 @@ window.onload=function()
 		//判断输赢
 		if(kaiguan){
 		      if( panduan(x,y,'black') ){
-		        alert('黑旗赢');
-		        if(confirm('是否再来一局')){
-		          localStorage.clear();
-		          qizi = {};
-		          huaqipan();
-		          kaiguan = true;
-		          return;
-		        }else{
-		          canvas.onclick  = null;
-		        }
+		        //alert('黑旗赢');
+		        clearInterval(t);	
+		        shifouzailai.style.display="block";
+		        shengli.classList.add('heiqisheng');
+		      	
+		      	canvas.onclick  = null;        
 		      }
 		    }else{
-		      if( panduan(x,y,'white') ){
-		        alert('白棋赢');
-		        if(confirm('是否再来一局')){
-		          localStorage.clear();
-		          qizi = {};
-		          huaqipan();
-		          kaiguan = true;
-		          return;
-		        }else{
-		          canvas.onclick = null;
-		        }
+		      if( panduan(x,y,'white') )
+		      {
+		        //alert('白棋赢');
+		       clearInterval(t);
+		        shifouzailai.style.display="block";
+		        shengli.classList.add('baiqisheng');
+		        
+		        canvas.onclick  = null;
 		      }
 		    }
+		shi.onclick=function()
+		{
+		  localStorage.clear();
+		  qizi = {};
+		  huaqipan();
+		  kaiguan = true;
+		  num=0;
+		  drawclock();
+		  clearInterval(t);
+		  chaoshi2.style.display="none";
+		  chaoshi.style.display="none";
+		  shifouzailai.style.display="none";
+		 shengli.classList.remove('baiqisheng');
+		 shengli.classList.remove('heiqisheng');
+		 canvas.onclick=danjiluozi;
+		  //return;
+		}
+		fou.onclick=function()
+		{
+		  clearInterval(t);
+		  chaoshi2.style.display="none";
+		  chaoshi.style.display="none";
+		  shifouzailai.style.display="none";
+		  canvas.onclick  = null;
+		}
 
 		kaiguan=!kaiguan;
 
@@ -154,7 +201,12 @@ window.onload=function()
 		{
 			localStorage.removeItem("x");
 		}
+
+		
+		
 	}
+
+	var danjiluozi=canvas.onclick;
 
 	var xy2id = function(x,y) {
 	    return x + '-' + y;
@@ -197,14 +249,91 @@ window.onload=function()
 	}
 
 	//清理数据
-	document.ondblclick=function()
+	var chongxinkaishi=document.querySelector("#chongxin")
+	chongxinkaishi.onclick=function()
 	{
 		localStorage.clear();
 		location.reload();
 	}
-	canvas.ondblclick=function(e)//阻止冒泡
-	{
-		e.stopPropagation()
+
+
+
+
+	var canvas1=document.querySelector("#biao1");
+	var ctx1=canvas1.getContext("2d");
+
+	var drawclock=function()
+	{	
+		//var d=new Date();
+		ctx1.clearRect(0,0,250,230);
+		//保存一个干净的画布状态
+		ctx1.save();
+
+		ctx1.translate(125,115);//移动画布原点到中心
+
+		ctx1.save();//画最外层的表盘
+
+		ctx1.strokeStyle="#2af";
+		ctx1.lineWidth=5;
+		ctx1.beginPath();
+		ctx1.arc(0,0,100,0,Math.PI*2);
+		ctx1.stroke();
+
+		ctx1.restore();
+
+		ctx1.save();//用循环画刻度
+
+		ctx1.lineWidth=2;
+		ctx1.lineCap="round";
+		for (var i = 1; i < 61 ; i++)
+		{
+			ctx1.rotate(Math.PI/30);
+			ctx1.beginPath();
+			if(i%5==0)
+			{	ctx1.lineWidth=2;
+				ctx1.moveTo(68,0)
+			}
+			else
+			{	ctx1.lineWidth=1;
+				ctx1.moveTo(78,0)
+			}
+			ctx1.lineTo(89,0);
+			ctx1.stroke();
+		}
+
+		ctx1.restore();
+
+		ctx1.save();//秒针
+		
+		ctx1.rotate(Math.PI/30*num);
+		ctx1.strokeStyle="red";
+		ctx1.lineWidth=3;
+		ctx1.lineCap="round";
+		ctx1.beginPath();
+		ctx1.moveTo(0,25);
+		ctx1.lineTo(0,-55);
+		ctx1.moveTo(5,-60);
+		ctx1.arc(0,-60,5,0,Math.PI*2);
+		ctx1.moveTo(0,-65);
+		ctx1.lineTo(0,-75);
+		ctx1.stroke();
+
+		ctx1.restore();
+
+		ctx1.save();//小圆
+
+		ctx1.beginPath();
+		ctx1.fillStyle="orange";
+		ctx1.arc(0,0,8,0,Math.PI*2);
+		ctx1.fill();
+
+		ctx1.restore();
+		
+		ctx1.restore();//复原一开始干净的状态
+
+		
 	}
+	drawclock();
+	
 	
 }

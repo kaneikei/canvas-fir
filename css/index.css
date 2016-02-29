@@ -1,1 +1,14 @@
-#canvas{display: block;box-shadow: 0 0 3px black;position: absolute;left: 50%;top:50%;margin-left: -300px;margin-top: -300px;background-color: #D5B491}
+#canvas{display: block;box-shadow: 0 0 3px black;position: absolute;left: 50%;top:50%;margin-left: -300px;margin-top: -300px;background-color: rgba(213,180,145,0.5);}
+#chongxin{width: 100px;height: 30px;background-color:#D39B5F;text-align: center;line-height: 30px;font-size: 20px;font-weight: bold;position: absolute;top: 320px;left: 150px;cursor: pointer;}
+#huiqi{width: 100px;height: 30px;background-color:#D39B5F;text-align: center;line-height: 30px;font-size: 20px;font-weight: bold;position: absolute;top: 380px;left: 150px;cursor: pointer;}
+#biao1{top: 33px;left: 75px;position: absolute;}
+.shengli{width: 280px;height: 600px;position: absolute;top: 35px;right: 50px;}
+.heiqisheng{background-image: url(../images/heiqisheng.png);}
+.baiqisheng{background-image: url(../images/baiqisheng.png);}
+#shifouzailai{width: 400px;height: 155px;background-color: rgba(255,255,255,0.7);border-radius: 20px;position: absolute;top: 250px;left: 484px;background-image: url(../images/zailaiyiju.png);display: none;}
+.shi{width: 60px;height: 60px;position: absolute;bottom: 12px;left: 70px;background-image: url(../images/shi.png);cursor: pointer;}
+.fou{width: 60px;height: 60px;position: absolute;bottom: 12px;right: 70px;background-image: url(../images/fou.png);cursor: pointer;}
+#chaoshi{width: 258px;height: 66px;background-color: rgba(255,255,255,0.7);border-radius: 20px;position: absolute;top: 160px;left: 550px;background-image: url(../images/heichaoshi.png);display: none;}
+#chaoshi2{width: 258px;height: 66px;background-color: rgba(255,255,255,0.7);border-radius: 20px;position: absolute;top: 160px;left: 550px;background-image: url(../images/baichaoshi.png);display: none;}
+
+body{background-image: url(../images/2.jpg);background-size: cover}
