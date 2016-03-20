@@ -49,54 +49,21 @@ window.onload=function()
 	}
 	huaqipan();
 
-
-	// var lingrad=ctx.createLinearGradient(20,300,600,300);//颜色的起点 终点  线性渐变
-	// lingrad.addColorStop(0,"red");
-	// lingrad.addColorStop(0.2,"orange");
-	// lingrad.addColorStop(0.4,"yellow");
-	// lingrad.addColorStop(0.6,"green");
-	// lingrad.addColorStop(0.8,"blue");
-	// lingrad.addColorStop(1,"purple");
-
-	// ctx.lineWidth=6;
-	// ctx.lineCap="round";//butt或square
-	// ctx.strokeStyle=lingrad;
-
-	// ctx.beginPath();
-	// ctx.moveTo(20,300);
-	// ctx.lineTo(580,300);
-	// ctx.stroke();
-
-	// ctx.beginPath();
-	// ctx.fillRect(0,0,600,200);
-	// ctx.fill()
-
-
-
-	//x number 落子x坐标
-	//y number 落子y坐标
-	//color boolean  true代表黑子 false代笔白子
-	var luozi2=function(x,y,color)
-	{	
-		var zx=39*x+27.5;
-		var zy=39*y+27.5;
-		var black=ctx.createRadialGradient(zx,zy,1,zx,zy,14);
-		black.addColorStop(0.1,"#555");
-		black.addColorStop(1,"black");
-		var white=ctx.createRadialGradient(zx,zy,1,zx,zy,14);
-		white.addColorStop(0.1,"#fff");
-		white.addColorStop(1,"#EdEdEd");
-		ctx.fillStyle=color?black:white;
-		ctx.beginPath();
-		ctx.arc(zx,zy,14,0,Math.PI*2);
-		ctx.fill();
+	var kongbai={};
+	for(var i=0;i<row;i++)
+	{
+		for(var j=0;j<row;j++)
+		{
+			
+		}
 	}
+
 	var qizitu=document.querySelector("#sucai");
 	var luozi=function(x,y,color)
 	{
 		var zx=39*x+13.5;
 		var zy=39*y+13.5;
-		if(color)
+		if(color=='black')
 		{
 			ctx2.drawImage(qizitu,0,0,65,65,zx,zy,28,28)
 		}
@@ -107,6 +74,32 @@ window.onload=function()
 	}
 	//调用落子函数  实现单击下子功能
 	var t;
+	// var ai=function()
+	// {
+	// 	do{
+	// 		var u=Math.floor(Math.random()*15);
+	// 		var i=Math.floor(Math.random()*15);
+	// 		}
+	// 	while(qizi[u+'-'+i])
+	// 		return {x:u,y:i}
+	// }
+	var fangshouAI=function()
+	{
+		var max=10000;
+		var xx={};
+		for(var i in kongbai)
+		{
+			var pos=i;
+			var x=pandun( Number(pos.split('-')[0]),Number(pos.split('-')[1]),'black');
+			if(x>max)
+			{
+				max=x;
+				xx.x=pos.split('-')[0];
+				xx.y=pos.split('-')[0];
+			}
+		}
+		return xx;
+	}
 	canvas2.onclick=function(ev)
 	{	//console.log(qizi);
 		//console.log(kaiguan)
@@ -141,11 +134,15 @@ window.onload=function()
 		{
 			return;
 		}
-		luozi(x,y,kaiguan);
-		qizi[x+'-'+y]=kaiguan?'black':'white';
+		luozi(x,y,'black');
+		qizi[x+'-'+y]='black';
+		delete kongbai
+		var pos=ai();
+		luozi(pos.x,pos.y,'white');
+		qizi[pos.x+'-'+pos.y]='white';
 		//对象的属性增加
 		//对象的增删改查
-		console.log(qizi);
+		//console.log(qizi);
 
 		//悔棋
 		document.querySelector('#huiqi').onclick = function(){

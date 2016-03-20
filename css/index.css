@@ -1,4 +1,5 @@
 #canvas{display: block;box-shadow: 0 0 3px black;position: absolute;left: 50%;top:50%;margin-left: -300px;margin-top: -300px;background-color: rgba(213,180,145,0.5);}
+#canvas2{display: block;position: absolute;left: 50%;top:50%;margin-left: -300px;margin-top: -300px;}
 #chongxin{width: 100px;height: 30px;background-color:#D39B5F;text-align: center;line-height: 30px;font-size: 20px;font-weight: bold;position: absolute;top: 320px;left: 150px;cursor: pointer;}
 #huiqi{width: 100px;height: 30px;background-color:#D39B5F;text-align: center;line-height: 30px;font-size: 20px;font-weight: bold;position: absolute;top: 380px;left: 150px;cursor: pointer;}
 #biao1{top: 33px;left: 75px;position: absolute;}
